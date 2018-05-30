@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Validation</title>
+	 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <<script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.17.0/dist/jquery.validate.min.js"></script>
+  <script>
+  	$(document).ready(function(){
+  		 $.validator.addMethod(
+            "regex",
+            function (value, element, regexp) {
+                var re = new RegExp(regexp);
+                return this.optional(element) || re.test(value);
+            },
+            "Numeric Value allowed upto 6 digits"
+    	);
+	 	$('#myform').validate({ // initialize the plugin
+			  rules: {
+				     email: {
+				        required: true,
+				        email:true
+				        },
+			        pwd:{
+			        	required:true
+			  		  }  ,
+				        phone:{
+				        	regex: "^(1\\s?)?((\\([0-9]{3}\\))|[0-9]{3})[\\s\\-]?[\0-9]{3}[\\s\\-]?[0-9]{4}$"
+				        },
+			       messages: {
+	      				email: {
+	            			required: "Enter something",
+	            			email:"Valid Email"
+
+	        			},
+	        			pwd:{
+	        					required: "Enter something"
+	        			}
+	    			}
+	    		}
+				});
+			
+  		$("#btnSubmit").click(function(){
+  			debugger;
+  			var p=$('#myform').valid();
+  		});	
+  	});
+  </script>
+</head>
+<body>
+<div class="container">
+  <h2>Vertical (basic) form</h2>
+  <form action="/action_page.php" id="myform">
+    <div class="form-group">
+      <label for="email">Email:</label>
+      <input type="email" class="form-control" id="email" placeholder="Enter email" name="email">
+    </div>
+    <div class="form-group">
+      <label for="pwd">Password:</label>
+      <input type="password" class="form-control" id="pwd" placeholder="Enter password" name="pwd">
+    </div>
+      <div class="form-group">
+      <label for="phone">Phone:</label>
+      <input type="text" class="form-control" id="phone" placeholder="Enter Phone" name="phone">
+    </div>
+    <div class="checkbox">
+      <label><input type="checkbox" name="remember"> Remember me</label>
+    </div>
+    <button type="button" class="btn btn-default" id="btnSubmit">Submit</button>
+  </form>
+</div>
+</body>
+</html>
